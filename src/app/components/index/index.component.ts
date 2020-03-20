@@ -14,16 +14,18 @@ export class IndexComponent implements OnInit {
 
   constructor() { 
     this.testObj = new Test();
-    let attr = Object.entries(this.testObj).splice(1);
+    let attr = Object.entries(this.testObj);
     this.testObjAttr = [];
     attr.forEach(field => {
       let fieldName = field[0];
-      this.formGroup.addControl(fieldName, new FormControl(this.testObj[fieldName]));
-      this.testObjAttr.push({
-        config: this.testObj.config[fieldName],
-        name: fieldName,
-        value: field[1]
-      });
+      if (fieldName != 'config') {
+        this.formGroup.addControl(fieldName, new FormControl(this.testObj[fieldName]));
+        this.testObjAttr.push({
+          config: this.testObj.config[fieldName],
+          name: fieldName,
+          value: field[1]
+        });
+      }
     });    
   }
 
