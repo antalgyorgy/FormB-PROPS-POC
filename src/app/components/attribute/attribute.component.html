@@ -1,0 +1,43 @@
+<div [formGroup]="formGrp">
+  <label *ngIf="config?.type !== 'checkbox'">
+    {{field['name']}}
+  </label>
+  <div [ngSwitch]="config?.type">
+    <div *ngSwitchCase="'select'" class="form-group">
+      <select [formControlName]="field['name']" class="form-control">
+        <option 
+          *ngFor="let opt of config.options" 
+          [value]="opt['value']" 
+          [selected]="opt['value'] == field['value'] ? true : false">
+        {{opt['label']}}
+        </option>
+      </select>
+    </div>
+    <div *ngSwitchCase="'number'" class="form-group">
+        <input 
+          type="number" 
+          [min]="config.options[0]" 
+          [max]="config.options[1]" 
+          [step]="config.options[2] || 1" 
+          [formControlName]="field['name']"
+          class="form-control"
+        />
+    </div>
+    <div *ngSwitchCase="'checkbox'" class="form-check">
+      <input 
+        type="checkbox" 
+        [formControlName]="field['name']" 
+        [checked]="field['value']"
+        class="form-check-input"
+      />
+      <label> {{ field['name']}} </label>
+    </div>
+    <div *ngSwitchDefault class="form-group">
+      <input type="text"
+        [formControlName]="field['name']"
+        [value]="field['value']" 
+        class="form-control"
+       />
+    </div>
+  </div>
+</div>

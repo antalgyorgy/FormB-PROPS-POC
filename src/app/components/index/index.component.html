@@ -1,0 +1,7 @@
+<div class="container w-25 border form-group p-2">
+    <app-attribute
+        *ngFor="let attr of testObjAttr"
+        [field]="attr"
+        [formGrp]="formGroup"
+    ></app-attribute>
+</div>
