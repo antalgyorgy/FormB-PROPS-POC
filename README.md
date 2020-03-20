@@ -5,8 +5,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Models
 
--ATest: abstract class 4 storing additional config information like input type or select options
-
 -Test: mock implementation of some panel \w attached fields
 (undefined fields without value wont appear :sad-face:)
 
