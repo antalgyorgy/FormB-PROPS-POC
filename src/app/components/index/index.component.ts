@@ -18,7 +18,7 @@ export class IndexComponent implements OnInit {
     this.testObjAttr = [];
     attr.forEach(field => {
       let fieldName = field[0];
-      if (fieldName != 'config') {
+      if (fieldName.charAt(0) === '@') {
         this.formGroup.addControl(fieldName, new FormControl(this.testObj[fieldName]));
         this.testObjAttr.push({
           config: this.testObj.config[fieldName],
