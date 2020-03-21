@@ -8,7 +8,7 @@ export class Test {
     "@unexpectedNumber": number = 100;
     "@select1": string = '0';
     "@color": string = 'RED';
-    config = {
+    _config = {
         "@select1": {
             type: 'select',
             options: [
