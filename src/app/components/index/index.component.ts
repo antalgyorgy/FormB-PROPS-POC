@@ -8,7 +8,7 @@ import { EAttribute } from 'src/app/models/eattribute.model';
  * beállításokat tartalmazó container component
  * hozzátartozó formGroup egybefogja az összes beállítást külön hozzátartozó formControlokkal
  * minden változtatás esetén elküldi RefrService Subject jével az új beállításokkal a törzsobjektumot
- * amire paramComponents onInit-ben feliratkozott és ez alapján frissíti a tartalmát
+ * amire paramComponents konstruktorban feliratkozott és ez alapján frissíti a tartalmát
 */
 @Component({
     selector: 'app-index',
