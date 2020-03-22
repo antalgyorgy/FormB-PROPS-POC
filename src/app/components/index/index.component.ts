@@ -44,8 +44,7 @@ export class IndexComponent implements OnInit {
 }
 
 /**
- * adott objektum paramétereinek összegyűjtése és formGroup paraméterben referenciaként
- * átadott objektumban hozzátartozó kontrolok létrehozása
+ * adott "panel" objektum paramétereinek összegyűjtése
  *
  * @param {Test} source bejövő Test objektum (panel mock)
  */
