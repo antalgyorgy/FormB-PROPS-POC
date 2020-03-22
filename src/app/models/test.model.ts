@@ -1,10 +1,11 @@
+//dummy/mock objektum a panelek szimulálásához
 export class Test {
     "@id": string = 'P24304';
     "@title": string = 'Szövegdoboz';
     "@null": any = null;
     "@undefined": undefined;
     "@required": boolean = true;
-    "@expectedNumber": number = 30;
+    "@fontSize": number = 30;
     "@unexpectedNumber": number = 100;
     "@select1": string = '0';
     "@color": string = 'RED';
@@ -12,9 +13,9 @@ export class Test {
         "@select1": {
             type: 'select',
             options: [
-                {label: 'Option 1', value: 0},
-                {label: 'Option 2', value: 1},
-                {label: 'Option 3', value: 2},
+                {label: 'Option 0', value: 0},
+                {label: 'Option 1', value: 1},
+                {label: 'Option 2', value: 2},
             ]
         },
         "@color": {
@@ -29,7 +30,7 @@ export class Test {
             type: 'checkbox',
             options: null
         },
-        "@expectedNumber": {
+        "@fontSize": {
             type: 'number',
             options: [
                 10, // min
@@ -38,6 +39,11 @@ export class Test {
             ]
         }
     };
+
+func = (params) => {
+    // some function not to list in settings
+    console.log(params);
+};
 
     constructor() {}
 }

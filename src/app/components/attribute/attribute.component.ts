@@ -16,6 +16,5 @@ export class AttributeComponent implements OnInit {
 
   ngOnInit() {
     this.config = this.field.config;
-    console.log(this);
   }
 }
