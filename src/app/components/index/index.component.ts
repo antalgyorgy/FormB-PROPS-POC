@@ -66,7 +66,7 @@ function getEAttributeObjects(source): EAttribute[] {
  *
  * @param {EAttribute[]} attributes
  */
-function createFormGroup(attributes: EAttribute[]) {
+function createFormGroup(attributes: EAttribute[]): FormGroup {
     let formGroup = new FormGroup({});
     attributes.forEach(attribute => {
         formGroup.addControl(attribute.name, new FormControl(attribute.value));

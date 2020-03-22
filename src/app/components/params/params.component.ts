@@ -24,7 +24,7 @@ export class ParamsComponent implements OnInit {
     /**
      * itt most csak kiiratom az összes mezőt egyébként itt lenne a panel előnézet frissítése
      */
-    refresh(obj) {
+    refresh(obj): void {
         this.result = Object.entries(obj)
             .filter(field => (field[0].charAt(0) !== '_' && typeof field[1] !== 'function'))
             .map(field => `${field[0]}: ${field[1]}`);
