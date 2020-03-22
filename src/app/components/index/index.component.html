@@ -1,20 +1,11 @@
 <div class="d-flex flex-row">
-    <div class="border form-group text-white" style="width: 500px;" 
-    [ngStyle]="{
-        'background-color':testObj['@color'],
-        'font-size':testObj['@fontSize']+'px'
-    }">
-        <app-params
-            [obj]="testObj"
-        ></app-params>
+    <div class="border form-group" style="width: 500px;" [ngStyle]="{'font-size':testObj['@fontSize']+'px'}">
+        <div style="height: 2rem;" [ngStyle]="{'background-color':testObj['@color']}"></div>
+        <app-params [obj]="testObj"></app-params>
     </div>
     <form (change)="onChange($event)">
         <div class="border form-group border" style="width: 400px">
-            <app-attribute
-                *ngFor="let attr of testObjAttr"
-                [field]="attr"
-                [formGrp]="formGroup"
-            ></app-attribute>
+            <app-attribute *ngFor="let attr of testObjAttr" [field]="attr" [formGrp]="formGroup"></app-attribute>
         </div>
     </form>
 </div>

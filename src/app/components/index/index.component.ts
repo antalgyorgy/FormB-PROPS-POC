@@ -1,59 +1,76 @@
 import { Component, OnInit } from '@angular/core';
 import { Test } from 'src/app/models/test.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { RefrService } from 'src/app/services/refr.service';
+import { EAttribute } from 'src/app/models/eattribute.model';
 
-/**beállításokat tartalmazó container component
+/**
+ * beállításokat tartalmazó container component
  * hozzátartozó formGroup egybefogja az összes beállítást külön hozzátartozó formControlokkal
  * minden változtatás esetén elküldi RefrService Subject jével az új beállításokkal a törzsobjektumot
- * amire paramComponents onInit-ben feliratkozott és "frissíti az adott mezők értékét"..
- * 
- * a viselkedés csak demonstrációja hogy egy adott beállítás módosításakor egy másik komponensben történjen változás
+ * amire paramComponents onInit-ben feliratkozott és ez alapján frissíti a tartalmát
 */
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  testObj : Test;
-  testObjAttr : any;
-  formGroup: FormGroup = new FormGroup({});
+    testObj: Test;
+    testObjAttr: EAttribute[];
+    formGroup: FormGroup;
 
-  constructor(private refrService: RefrService) { 
-    this.testObj = new Test();
-    this.testObjAttr = getAttributeObjects(this.testObj, this.formGroup);
-  }
+    constructor(private refrService: RefrService) {
+        const storedObj = localStorage.getItem('setup');
+        this.testObj = storedObj !== null ? JSON.parse(storedObj) : new Test();
 
-  ngOnInit() {
-  }
+        this.testObjAttr = getEAttributeObjects(this.testObj)
+        this.formGroup = createFormGroup(this.testObjAttr);
+    }
 
-  onChange() {
-    // objektum paramétereinek frissítése (rejtett szereplők megtartásával)
-    this.testObj = {...this.testObj, ...this.formGroup.value};
-    // nézetfrissítés refrService Subject-jével
-    this.refrService.refrView.next(this.testObj);
-  }
+    ngOnInit() { }
+
+    onChange() {
+
+        // objektum paramétereinek frissítése (rejtett szereplők megtartásával)
+        this.testObj = { ...this.testObj, ...this.formGroup.value };
+        const objToStore = JSON.stringify(this.testObj);
+        localStorage.setItem('setup', objToStore);
+
+        // nézetfrissítés refrService Subject-jével
+        this.refrService.refrView.next(this.testObj);
+    }
 
 }
 
-/**adott objektum paramétereinek összegyűjtése és formGroup paraméterben referenciaként
-*  átadott objektumban hozzátartozó kontrolok létrehozása
-*/
-function  getAttributeObjects(source, formGroup) {
-  let attr = Object.entries(source);
-  let result = [];
-  attr.forEach(field => {
-    let fieldName = field[0];
-    if (fieldName.charAt(0) !== '_' && typeof field[1] !== 'function') {
-      formGroup.addControl(fieldName, new FormControl(source[fieldName]));
-      result.push({
-        config: source._config[fieldName],
-        name: fieldName,
-        value: field[1]
-      });
-    }
-  });
-  return result;    
+/**
+ * adott objektum paramétereinek összegyűjtése és formGroup paraméterben referenciaként
+ * átadott objektumban hozzátartozó kontrolok létrehozása
+ *
+ * @param {Test} source bejövő Test objektum (panel mock)
+ */
+function getEAttributeObjects(source): EAttribute[] {
+    let attributes = Object.entries(source)
+        .filter(field => (field[0].charAt(0) !== '_' && typeof field[1] !== 'function'))
+        .map(field => {
+            return {
+                config: source._config[field[0]],
+                name: field[0],
+                value: field[1]
+            }
+        });
+    return attributes;
+}
+
+/**
+ * attribútumtömb alapján létrehoz egy FormGroup-ot a beállítások űrlap kezeléséhez
+ *
+ * @param {EAttribute[]} attributes
+ */
+function createFormGroup(attributes: EAttribute[]) {
+    let formGroup = new FormGroup({});
+    attributes.forEach(attribute => {
+        formGroup.addControl(attribute.name, new FormControl(attribute.value));
+    });
+    return formGroup;
 }
