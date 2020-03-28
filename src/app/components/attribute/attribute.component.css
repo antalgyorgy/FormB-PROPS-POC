@@ -1,0 +1,21 @@
+label {
+    margin-bottom: -2rem;
+}
+
+input, select {
+    margin-top: -.5rem;
+}
+
+.editor-container {
+    position: relative;
+    height: 200px;
+    width: 100%;
+}
+
+.editor-full-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}

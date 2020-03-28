@@ -8,6 +8,7 @@ export class Test {
     "@unexpectedNumber": number = 100;
     "@select1": string = '0';
     "@color": string = 'RED';
+    "@code": any = 'console.log(\'it works\')';
     _config = {
         "@select1": {
             type: 'select',
@@ -31,11 +32,15 @@ export class Test {
         },
         "@fontSize": {
             type: 'number',
-            options: [
-                10, // min
-                100, // max
-                2 // step
-            ]
+            options: {
+                min: 10,
+                max: 100,
+                step: 2
+            }
+        },
+        "@code": {
+            type: 'code',
+            options: { theme: 'vs-dark', language: 'javascript', automaticLayout:'true' }
         }
     };
 

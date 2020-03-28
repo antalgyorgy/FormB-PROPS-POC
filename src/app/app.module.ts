@@ -9,6 +9,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ParamsComponent } from './components/params/params.component';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
+
+const monacoConfig: NgxMonacoEditorConfig = {
+    baseUrl: './assets',
+    defaultOptions: { scrollBeyondLastLine: false },
+    onMonacoLoad: () => {
+        console.log((<any>window).monaco);
+    }
+  };
 
 @NgModule({
   declarations: [
@@ -23,7 +32,8 @@ import { ParamsComponent } from './components/params/params.component';
     RouterModule,
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MonacoEditorModule.forRoot(monacoConfig),
   ],
   providers: [NgModule],
   bootstrap: [AppComponent]

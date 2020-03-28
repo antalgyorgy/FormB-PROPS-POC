@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { RefrService } from 'src/app/services/refr.service';
 import { EAttribute } from 'src/app/models/eattribute.model';
 
+
 /**
  * beállításokat tartalmazó container component
  * hozzátartozó formGroup egybefogja az összes beállítást külön hozzátartozó formControlokkal
@@ -40,6 +41,7 @@ export class IndexComponent implements OnInit {
         // nézetfrissítés refrService Subject-jével
         this.refrService.refrView.next(this.testObj);
     }
+
 
 }
 

@@ -3,9 +3,10 @@
         <div style="height: 2rem;" [ngStyle]="{'background-color':testObj['@color']}"></div>
         <app-params [obj]="testObj"></app-params>
     </div>
-    <form (change)="onChange($event)">
+    <form (change)="onChange($event)" [formGroup]="formGroup">
         <div class="border form-group border" style="width: 400px">
             <app-attribute *ngFor="let attr of testObjAttr" [field]="attr" [formGrp]="formGroup"></app-attribute>
         </div>
     </form>
 </div>
+
